@@ -1,6 +1,12 @@
 import math
 import random
 
+
+# matrix alleen nodig voor visualisatie
+
+#elk huis wat is de afstand?
+
+
 class Position (object):
 	def __init__(self, x, y):
 		self.x = x
@@ -49,14 +55,17 @@ class FieldMap (object):
 		if self.housetype is not "small":
 			self.occupied.append(pos.x + width_x, pos.y + height_y)
 
-	def isGroundOccupied(self, x, y):
-		check_coord = (x, y)
+	def isGroundOccupied(self, x, y, width, depth):
+		# MOET HOUSETYPE WORDEN MEEGEGEVEN?????
+		for pos in self.occupied:
+			for i in range(x, (x + width)):
+				for j in range (y, (y +depth)):
+					if pos.x == i and pos.y == j:
+						return True
 
-		if check_coord in self.occupied:
-            return True
-        return False
+		return False
 
-	def getRandomPosition(self, housetype):
+	def getRandomPosition(self, width, depth):
         """
         Return a random position inside the room.
 
@@ -72,37 +81,46 @@ class FieldMap (object):
         
         return ran_pos
 
-class SmallHouse (object):
+class House (object):
+	def __init__(self):
+		field = FieldMap()
+		pos = field.getRandomPosition()
+	# FUNCTIES DIE VOOR ALLE HUIZEN GELDEN
+
+	def getHousePosition(self):
+		return self.pos
+
+	def setHousePosition(self):
+		while (isGroundOccupied(self.pos.x, self.pos.y, self.width, self.depth)):
+			self.pos = field.getRandomPosition()
+
+	#checken hoeveel meter huis tot andere huizen
+
+	# checken of er al een huis staat <--- field
+
+	#init van super aanroepen <--- googlen (house)
+
+class SmallHouse (House):
 	def __init__(self):
 		self.width = 12.0
 		self.depth = 12.0
 		self.housetype = "small"
-		field = FieldMap()
-		self.pos = field.getRandomPosition()
 
-	def getSmallHousePosition(self):
-		return self.pos
+		
 
-class MediumHouse (object):
+class MediumHouse (House):
 	def __init__(self):
 		self.width = 16.0
 		self.depth = 13.5
 		self.housetype = "medium"
-		field = FieldMap()
-		self.pos = field.getRandomPosition()
 
-	def getSmallHousePosition(self):
-		return self.pos
+		isGroundOccupied(self, x, y, width, depth):
 
-class LargeHouse (object):
+class LargeHouse (House):
 	def __init__(self):
 		self.width = 23.0
 		self.depth = 22.5
 		self.housetype = "large"
-		field = FieldMap()
-		self.pos = field.getRandomPosition()
 
-	def getSmallHousePosition(self):
-		return self.pos
-
+		isGroundOccupied(self, x, y, width, depth):
 
