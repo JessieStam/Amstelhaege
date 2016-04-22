@@ -1,5 +1,7 @@
 import math
 import random
+import numpy as np
+#import pygame
 
 
 # matrix alleen nodig voor visualisatie
@@ -24,36 +26,31 @@ class Position (object):
 
 class FieldMap (object):
 	def __init__(self):
-		self.width = 150
-		self.depth = 160
-		self.occupied = []
+		self.grid = np.zeros((160,150), dtype = int)
+		# self.grid = []
+		# row = []
+		# for i in range(0, 150):
+		# 	row.append(0)
+
+		# for j in range (0, 160):
+		# 	self.grid.append(row)
+				
+		#for index, value in enumerate(grid):
+		self.occupied = {}
 
 	def getOccupiedGround(self):
 		return self.occupied
 
 	def setOccupiedGround(self, pos, housetype):
-        width_x = 0
-        height_y = 0
+        self.pos = pos
 
 		# 10 want small house neemt 12 coords in beslag
 		if self.housetype == "small":
-			width_x = 12.0
-			heigth_y = 12.0
+			self.occupied[self.pos] = SmallHouse()
 		elif self.housetype == "medium":
-			width_x = 16.0
-			height_y = 13.5
+			self.occupied.update({self.pos:})
 		else:
-			width_x = 23.0
-			height_y = 22.5
-
-		for coord_x in range(int(pos.x), int(width_x)):
-			for coord_y in range(int(pos.y), int(height_y)):
-				self.pos = (coord_x, coord_y) 
-				self.occupied.append(self.pos)
-		
-		# geen floats voor in range !?!?!?
-		if self.housetype is not "small":
-			self.occupied.append(pos.x + width_x, pos.y + height_y)
+			self.occupied.update({self.pos:})
 
 	def isGroundOccupied(self, x, y, width, depth):
 		# MOET HOUSETYPE WORDEN MEEGEGEVEN?????
@@ -82,7 +79,7 @@ class FieldMap (object):
         return ran_pos
 
 class House (object):
-	def __init__(self):
+	def __init__(self, x, y):
 		field = FieldMap()
 		pos = field.getRandomPosition()
 	# FUNCTIES DIE VOOR ALLE HUIZEN GELDEN
