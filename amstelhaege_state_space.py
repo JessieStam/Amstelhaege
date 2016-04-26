@@ -8,40 +8,75 @@ import numpy as np
 
 #elk huis wat is de afstand?
 
-
 class Position (object):
+	"""
+    Returns upper-left position of given object. 
+
+    x: an x coordinate (integer).
+    y: an y coordinate (integer).
+    """
 	def __init__(self, x, y):
+		"""
+		Initializes position's x and y coordinate.
+		"""
 		self.x = x
 		self.y = y
 
 	def get_x(self):
+		"""
+		Returns the x coordinate of the given object.
+		"""
 		return self.x
 
 	def get_y(self):
+		"""
+		Returns the y coordinate of the given object.
+		"""
 		return self.y
 
 		#if self.housetype == "small":
 
 
-
 class FieldMap (object):
+	"""
+	Represents the 150x160m2 area on which the houses and water should be positioned.
+	The map is made up of a list containing 160 lists, each containing 150 integer values.
+	These tiles are either occupied or not occupied.
+	"""
 	def __init__(self):
+		"""
+		Initializes grid for the area. Initially this grid is filled with zeros of type integer.
+		"""
+		# create grid filled with 0s (an int) using numpy
 		self.grid = np.zeros((160,150), dtype = int)
-		# self.grid = []
-		# row = []
-		# for i in range(0, 150):
-		# 	row.append(0)
+		
+		# code below is filling grid using iterations, in case the above doesn't work
+			# self.grid = []
+			# row = []
+			# for i in range(0, 150):
+			# 	row.append(0)
 
-		# for j in range (0, 160):
-		# 	self.grid.append(row)
+			# for j in range (0, 160):
+			# 	self.grid.append(row)
 				
-		#for index, value in enumerate(grid):
+		#for index, value in enumerate(grid) (store occupied locations in dictionary, we're not sure if we will use this yet)
 		self.occupied = {}
 
+
 	def getOccupiedGround(self):
+		"""
+		Returns occupied coordinates.
+		"""
 		return self.occupied
 
 	def setOccupiedGround(self, pos, housetype):
+		"""
+		Places the houses onto the map.
+		Changes the integer values for occupied positions to 1 for small house, 2 for medium house, 3 for large house.
+
+		pos: a Position object.
+		housetype: a house of certain size.
+		"""
         self.pos = pos
 
 		# 10 want small house neemt 12 coords in beslag
@@ -49,8 +84,14 @@ class FieldMap (object):
 			self.occupied[self.pos] = SmallHouse()
 		elif self.housetype == "medium":
 			self.occupied.update({self.pos:})
-		else:
+		else self.housetype == "large":
 			self.occupied.update({self.pos:})
+
+
+		if self.housetype == "small":
+			self.grid
+
+
 
 	def isGroundOccupied(self, x, y, width, depth):
 		# MOET HOUSETYPE WORDEN MEEGEGEVEN?????
@@ -65,7 +106,6 @@ class FieldMap (object):
 	def getRandomPosition(self, width, depth):
         """
         Return a random position inside the room.
-
         returns: a Position object.
         """
 
