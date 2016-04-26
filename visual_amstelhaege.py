@@ -1,11 +1,22 @@
-import pygame
+import sys, pygame
 pygame.init()
 
+size = (0, 0)
 
-GREEN = (100, 200, 200)
+green = (0, 255, 0)
+blue = (0, 0, 255)
 
-DISPLAYSURF = pygame.display.set_mode((1024, 768), 0, 32)
-DISPLAYSURF.fill(GREEN)
-pygame.draw.rect(DISPLAYSURF, GREEN, (10, 30, 150, 160))
 
-pygame.time.delay(10000) 
+#make background
+surface_bg = pygame.display.set_mode(size)
+surface_bg.fill(green)
+
+pygame.display.update()
+
+pygame.draw.rect(surface_bg, blue, (15, 15, 30, 30), 0)
+
+pygame.display.update()
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: 
+        	sys.exit()
