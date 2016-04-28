@@ -1,6 +1,7 @@
 import math
 import random
 import numpy as np
+import visual_amstelhaege
 #import pygame
 
 
@@ -52,7 +53,7 @@ class FieldMap (object):
         """
         # create grid filled with 0s (an int) using numpy
         #self.grid = np.zeros((320,300), dtype = int)
-        self.grid = np.zeros((5,5), dtype = int)
+        self.grid = np.zeros((15,15), dtype = int)
 
         
         # code below is filling grid using iterations, in case the above doesn't work
@@ -88,7 +89,8 @@ class FieldMap (object):
         #     for j in range(pos_top.y, pos_bottom.y + 1):
         #         self.grid[i][j] = worth
 
-        self.grid[pos_top.x: pos_bottom.x + 1, pos_top.y: pos_bottom.y + 1] = worth
+        self.grid[pos_top.y: pos_bottom.y + 1, pos_top.x: pos_bottom.x + 1] = worth
+        self.occupied[(pos_top.x, pos_top.y)] = 300
 
         #10 want small house neemt 12 coords in beslag
         # if self.housetype == "small":
@@ -108,8 +110,8 @@ class FieldMap (object):
         # MOET HOUSETYPE WORDEN MEEGEGEVEN?????
         for pos in self.occupied:
             for i in range(x, (x + width)):
-                for j in range (y, (y +depth)):
-                    if pos.x == i and pos.y == j:
+                for j in range (y, (y + depth)):
+                    if pos[0] == i and pos[1] == j:
                         return True
 
         return False
@@ -128,16 +130,76 @@ class FieldMap (object):
  #        ran_pos = Position(ran_x, ran_y)
  #        return ran_pos
 
+    def amountGroundFree(self):
+        # WAAROM MOET ALLES EERST EEN WAARDE KRIJGEN???
+        begin_col_hor = 0
+        begin_row_hor = 0
+        end_col_hor = 0
+        end_row_hor = 0
+        begin_col_ver = 0
+        begin_row_ver = 0
+        end_col_ver = 0
+        end_row_ver = 0
+        begin_pos = Position(0,0)
+        house = True
+        # 300 x 320 grootte grid
+        for col in range(0, 13):
+            house == True
+            for row in range (0, 13):
+                if self.grid[col, row] > 1 and (self.grid[col, row - 1] < 2 or self.grid[col - 1, row] < 2):
+                    begin_pos = (col, row)
+                if self.grid[col, row] > 1 and self.grid[col, row + 1] < 2 or self.grid[col + 1, row] < 2:
+                    begin_col_hor = col
+                    begin_row_hor = row
+                    house = False
+                    print "here"
+                elif house == False and self.grid[col, row + 1] > 1 and self.grid[col, row + 2] > 1:
+                    end_col_hor = col + 1
+                    end_row_hor = row + 1
+                    house = True 
+                    if self.occupied.get(begin_pos, -1) > (end_row_hor - begin_row_hor):
+                        self.occupied[begin_pos] = (end_row_hor - begin_row_hor)
+                        print self.occupied[begin_pos]
+
+                if self.grid[col, row] > 1 and self.grid[col + 1, row] < 2:
+                    begin_col_ver = col
+                    begin_row_ver = row
+                    house = False
+                elif house == False and self.grid[col + 1, row] > 1 and self.grid[col + 2, row] > 1:
+                    end_col_ver = col + 1
+                    end_row_ver = row + 1
+                    house = True 
+                    if self.occupied.get(begin_pos, -1) > (end_row_ver - begin_row_ver):
+                        self.occupied[begin_pos] = (end_row_ver - begin_row_ver)
+                        print self.occupied[begin_pos]
+                                           
+
+
+
+
+
 ground_test = FieldMap()
-pos_linkhoek = Position(2, 1)
-pos_rechthoek = Position(3, 3)
+pos_linkhoek = Position(1, 2)
+pos_rechthoek = Position(4, 4)
 num_worth = 3 
 
 ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_worth)
 
+pos_linkhoek = Position(8, 3)
+pos_rechthoek = Position(13, 7)
+
+ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_worth)
+
+for pos in ground_test.occupied:
+    print pos
+
 print ground_test.grid
 print ground_test.isGroundOccupied(1, 2, 2, 3)
 print ground_test.isGroundOccupied(0, 0, 3, 1)
+
+ground_test.amountGroundFree()
+
+visual_amstelhaege.runProgram(ground_test.grid)
 
 
 class House (object):
@@ -196,4 +258,10 @@ class LargeHouse (House):
         self.depth = 21
         self.free_m2 = 6
         self.house_gridworth = 6
+
+# class Water (object):
+#     """docstring for ClassName"""
+#     def __init__(self, arg):
+#         self.total = 4800
+        
 
