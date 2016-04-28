@@ -4,9 +4,9 @@ import numpy as np
 pygame.init()
 
 
-def runProgramm(grid):
+def runProgram(grid):
     """
-    Runs the map programm
+    Runs the map program
     """
     # four times the size of the original map
     map_size = (600, 640)
@@ -28,8 +28,8 @@ def runProgramm(grid):
 
     #iterate over grid
     #comments magic numbers
-    for depth in range(0, 320):
-        for width in range(0, 300):
+    for depth in range(0, 15):
+        for width in range(0, 15):
             # draw darkgreen squares for required free space
             if grid[width, depth] == 1:
                 pygame.draw.rect(surface_bg, darkgreen, ((width * 4), (depth * 4), 4, 4), 0)
@@ -52,7 +52,7 @@ def runProgramm(grid):
 
         pygame.display.update()
 
-    # keep programm running until told otherwise               
+    # keep program running until told otherwise               
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
@@ -62,4 +62,4 @@ def runProgramm(grid):
 # grid = np.zeros((300,320), dtype = int)
 # grid[20:60, 20:60] = 3
 
-# runProgramm(grid)
+# runProgram(grid)
