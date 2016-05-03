@@ -224,7 +224,7 @@ class House (object):
     def __init__(self, x, y):
         """
         FieldMap: a class for the grid
-        House_freem2: an int: obligatory free space aroud a house 
+        house_freem2: an int: obligatory free space aroud a house 
         """
         self.field = FieldMap()
         # this used to be 2, but it is 2m per side of the house, so 4?
@@ -237,7 +237,7 @@ class House (object):
     def getHousePosition(self):
         return self.pos
 
-    def setHousePosition(self):
+    def setHousePosition(self, housetype):
         # get random pos to set house
         self.pos = self.field.getRandomPosition()
         # check if ground for house and obligatory free m2 is already occupied
@@ -253,12 +253,11 @@ class House (object):
 
         # set ground of house + obligatory free m2
         # maybe add the value that the tiles should have
-        # set occupied ground veranderd de tegelwaarde in tilevalue
+        # set occupied ground veranderd de tegelwaarde in tilevalue for free_m2
         setOccupiedGround(self.pos_top_m2, self.pos_bottom_m2, self.house_freem2, free_m2_tilevalue)
-        # overwrite ground of house where only the house is at
-        # different value
+        # overwrite ground of house where only the house is at different value
         # OF MOET DEZE LAATSTE IN DE HOUSE CLASS ZELF????
-        setOccupiedGround(self.pos, self.pos_bottom, self.house_tilevalue)
+        setOccupiedGround(self.pos, self.pos_bottom, housetype.house_tilevalue)
 
 #checken hoeveel meter huis tot andere huizen
 
@@ -272,6 +271,8 @@ class SmallHouse (House):
         self.depth = 16
         self.free_m2 = 4
         self.house_tilevalue = 2
+    def getSmallHouseValue:
+        return self.house_tilevalue
 
 class MediumHouse (House):
     def __init__(self):
@@ -279,6 +280,8 @@ class MediumHouse (House):
         self.depth = 15
         self.free_m2 = 6
         self.house_tilevalue = 3
+    def getSmallHouseValue:
+        return self.house_tilevalue
 
 class LargeHouse (House):
     def __init__(self):
@@ -286,6 +289,8 @@ class LargeHouse (House):
         self.depth = 21
         self.free_m2 = 12
         self.house_tilevalue = 4
+    def getSmallHouseValue:
+        return self.house_tilevalue
 
 # class Water (object):
 #     """docstring for ClassName"""
