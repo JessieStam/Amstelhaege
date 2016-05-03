@@ -75,22 +75,26 @@ class FieldMap (object):
     #     """
     #     return self.occupied
 
-    def setOccupiedGround(self, pos_top, pos_bottom, worth):
+    def setOccupiedGround(self, pos_top, pos_bottom, tilevalue):
         """
         Places the houses onto the map.
-        Changes the integer values for occupied positions to 2 for small house,
-        3 for medium house, 4 for large house, 1 for free space, 5 for water.
+        Changes the integer values for occupied positions from 0 to an interger
+        from 1 to 5.
 
         pos: a Position object.
         housetype: a house of certain size.
+        tilevalue: value of a house: 2 for small house, 3 for medium house, 
+        4 for large house, 1 for free space, 5 for water.
         """
 
         # for i in range (pos_top.x, pos_bottom.x + 1):
         #     #column
         #     for j in range(pos_top.y, pos_bottom.y + 1):
-        #         self.grid[i][j] = worth
+        #         self.grid[i][j] = tilevalue
 
-        self.grid[pos_top.y: pos_bottom.y + 1, pos_top.x: pos_bottom.x + 1] = worth
+        # change value of grid positions
+        self.grid[pos_top.y: pos_bottom.y + 1, pos_top.x: pos_bottom.x + 1] = tilevalue
+        # dictionary update
         self.occupied[(pos_top.x, pos_top.y)] = 300
 
         #10 want small house neemt 12 coords in beslag
@@ -108,7 +112,8 @@ class FieldMap (object):
 
 
     def isGroundOccupied(self, x, y, width, depth):
-        # MOET HOUSETYPE WORDEN MEEGEGEVEN?????
+        # MOET HOUSETYPE WORDEN MEEGEGEVEN????? Jessie denkt van niet,
+        # want hij geeft true of false terug, niet de waarde van de tegel
         for pos in self.occupied:
             for i in range(x, (x + width)):
                 for j in range (y, (y + depth)):
@@ -117,19 +122,20 @@ class FieldMap (object):
 
         return False
 
-    # def getRandomPosition(self, width, depth):
-    #     # """
-    #     # Return a random position inside the room.
-    #     # returns: a Position object.
-    #     # """
+    def getRandomPosition(self, width, depth):
+        """
+        Return a random position inside the room.
+        returns: a Position object.
+        """
 
- #        # get random numbers to generate a random position in room
-
- #        # constraints in de functie waar hij aangeroepen wordt
- #        ran_x = random.randint(0, self.width - 23) 
- #        ran_y = random.randint(0, self.depth - 23)
- #        ran_pos = Position(ran_x, ran_y)
- #        return ran_pos
+        # get random numbers to generate a random position in room
+        # constraints in de functie waar hij aangeroepen wordt
+        # minus 18 because every house extands 18 tiles to the right and down (16m + 2m free space)
+        # used to be 23, dont know why
+        ran_x = random.randint(0, width - 18) 
+        ran_y = random.randint(0, depth - 18)
+        ran_pos = Position(ran_x, ran_y)
+        return ran_pos
 
     def amountGroundFree(self):
         # WAAROM MOET ALLES EERST EEN WAARDE KRIJGEN???
@@ -169,7 +175,7 @@ class FieldMap (object):
                         self.occupied[begin_pos] = (end_row_hor - begin_row_hor)
                         print self.occupied[begin_pos]
 
-                # same function for when house is rotated
+                # same function for when house is rotated???
                 if self.grid[col, row] > 1 and self.grid[col + 1, row] < 2:
                     begin_col_ver = col
                     begin_row_ver = row
@@ -190,14 +196,14 @@ class FieldMap (object):
 ground_test = FieldMap()
 pos_linkhoek = Position(1, 2)
 pos_rechthoek = Position(4, 4)
-num_worth = 3 
+num_tilevalue = 3 
 
-ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_worth)
+ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_tilevalue)
 
 pos_linkhoek = Position(8, 3)
 pos_rechthoek = Position(13, 7)
 
-ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_worth)
+ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_tilevalue)
 
 for pos in ground_test.occupied:
     print pos
@@ -212,34 +218,47 @@ visual_amstelhaege.runProgram(ground_test.grid)
 
 
 class House (object):
-  def __init__(self, x, y):
+    """
+    Basis for three house types and water
+    """
+    def __init__(self, x, y):
+        """
+        FieldMap: a class for the grid
+        House_freem2: an int: obligatory free space aroud a house 
+        """
         self.field = FieldMap()
-        self.house_freem2 = 2
-        #pos = field.getRandomPosition()
-  # FUNCTIES DIE VOOR ALLE HUIZEN GELDEN
+        # this used to be 2, but it is 2m per side of the house, so 4?
+        # and is this even 4, because it differs per house right?
+        self.house_freem2 = 4
+        pos = field.getRandomPosition()
+        free_m2_tilevalue = 1
+    # FUNCTIES DIE VOOR ALLE HUIZEN GELDEN
 
-  def getHousePosition(self):
+    def getHousePosition(self):
         return self.pos
 
-  def setHousePosition(self):
-    # get random pos to set house
-    self.pos = self.field.getRandomPosition()
-    # check if ground for house and obligatory free m2 is already occupied
-    while (isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
+    def setHousePosition(self):
+        # get random pos to set house
         self.pos = self.field.getRandomPosition()
+        # check if ground for house and obligatory free m2 is already occupied
+        while (isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
+            self.pos = self.field.getRandomPosition()
 
-    # calculate pos of left corner of house + obligatory free m2
-    self.pos_top_m2 = (self.pos.x - self.free_m2), (self.pos.y - self.free_m2)
-    # calculate pos of richt corner of house
-    self.pos_bottom = ((self.pos.x + self.width), (self.pos.y + self.depth))
-    # calculate pos of richt corner of house + obligatory free m2
-    self.pos_bottom_m2 = ((self.pos_bottom.x + self.free_m2), (self.pos_bottom.y + self.free_m2))
+        # calculate pos of left corner of house + obligatory free m2
+        self.pos_top_m2 = (self.pos.x - self.free_m2), (self.pos.y - self.free_m2)
+        # calculate pos of right corner of house
+        self.pos_bottom = ((self.pos.x + self.width), (self.pos.y + self.depth))
+        # calculate pos of richt corner of house + obligatory free m2
+        self.pos_bottom_m2 = ((self.pos_bottom.x + self.free_m2), (self.pos_bottom.y + self.free_m2))
 
-    # set ground of house + obligatory free m2
-    setOccupiedGround(self.pos_top_m2, self.pos_bottom_m2, self.house_freem2)
-    # overwrite ground of house where only the house is at
-    # OF MOET DEZE LAATSTE IN DE HOUSE CLASS ZELF????
-    setOccupiedGround(self.pos, self.pos_bottom, self.house_gridworth)
+        # set ground of house + obligatory free m2
+        # maybe add the value that the tiles should have
+        # set occupied ground veranderd de tegelwaarde in tilevalue
+        setOccupiedGround(self.pos_top_m2, self.pos_bottom_m2, self.house_freem2, free_m2_tilevalue)
+        # overwrite ground of house where only the house is at
+        # different value
+        # OF MOET DEZE LAATSTE IN DE HOUSE CLASS ZELF????
+        setOccupiedGround(self.pos, self.pos_bottom, self.house_tilevalue)
 
 #checken hoeveel meter huis tot andere huizen
 
@@ -251,22 +270,22 @@ class SmallHouse (House):
     def __init__(self):
         self.width = 16
         self.depth = 16
-        self.free_m2 = 2
-        self.house_gridworth = 1
+        self.free_m2 = 4
+        self.house_tilevalue = 2
 
 class MediumHouse (House):
     def __init__(self):
         self.width = 20
         self.depth = 15
-        self.free_m2 = 3
-        self.house_gridworth = 4
+        self.free_m2 = 6
+        self.house_tilevalue = 3
 
 class LargeHouse (House):
     def __init__(self):
         self.width = 22
         self.depth = 21
-        self.free_m2 = 6
-        self.house_gridworth = 6
+        self.free_m2 = 12
+        self.house_tilevalue = 4
 
 # class Water (object):
 #     """docstring for ClassName"""
