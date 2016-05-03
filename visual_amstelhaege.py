@@ -31,22 +31,23 @@ def runProgram(grid):
     for depth in range(0, 15):
         for width in range(0, 15):
             # draw darkgreen squares for required free space
-            if grid[width, depth] == 1:
+            # changed depth and with positions, because orientation was off
+            if grid[depth, width] == 1:
                 pygame.draw.rect(surface_bg, darkgreen, ((width * 4), (depth * 4), 4, 4), 0)
             # draw black squares for small house
-            elif grid[width, depth] == 2:
+            elif grid[depth, width] == 2:
                 pygame.draw.rect(surface_bg, black, ((width * 4), (depth * 4), 4, 4), 0)
                 pygame.display.update()
             # draw red squares for medium house
-            elif grid[width, depth] == 3:
+            elif grid[depth, width] == 3:
                 pygame.draw.rect(surface_bg, red, ((width * 4), (depth * 4), 4, 4), 0)
                 pygame.display.update()
             # draw pink squares for large house
-            elif grid[width, depth] == 4:
+            elif grid[depth, width] == 4:
                 pygame.draw.rect(surface_bg, pretty_pink, ((width * 4), (depth * 4), 4, 4), 0)
                 pygame.display.update()
             # draw blue squares for water
-            elif grid[width, depth] == 5:
+            elif grid[depth, width] == 5:
                 pygame.draw.rect(surface_bg, blue, ((width * 4), (depth * 4), 4, 4), 0)
                 pygame.display.update()
 

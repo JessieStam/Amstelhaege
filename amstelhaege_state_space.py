@@ -78,7 +78,8 @@ class FieldMap (object):
     def setOccupiedGround(self, pos_top, pos_bottom, worth):
         """
         Places the houses onto the map.
-        Changes the integer values for occupied positions to 1 for small house, 2 for medium house, 3 for large house.
+        Changes the integer values for occupied positions to 2 for small house,
+        3 for medium house, 4 for large house, 1 for free space, 5 for water.
 
         pos: a Position object.
         housetype: a house of certain size.
@@ -146,13 +147,20 @@ class FieldMap (object):
         for col in range(0, 13):
             house == True
             for row in range (0, 13):
+                # if tile has a house value and tile left and tile above position have no house value, 
+                # initialize starting position
                 if self.grid[col, row] > 1 and (self.grid[col, row - 1] < 2 or self.grid[col - 1, row] < 2):
                     begin_pos = (col, row)
+
+                # if tile has a house value, and tile right of position has no house value or tile below 
+                # position has no house value, initialize start column and start row and define end of house
                 if self.grid[col, row] > 1 and self.grid[col, row + 1] < 2 or self.grid[col + 1, row] < 2:
                     begin_col_hor = col
                     begin_row_hor = row
                     house = False
                     print "here"
+                # if house is false, and tile right of position has a house value or tile below
+                # position has a house value, and positions to end of house
                 elif house == False and self.grid[col, row + 1] > 1 and self.grid[col, row + 2] > 1:
                     end_col_hor = col + 1
                     end_row_hor = row + 1
@@ -161,6 +169,7 @@ class FieldMap (object):
                         self.occupied[begin_pos] = (end_row_hor - begin_row_hor)
                         print self.occupied[begin_pos]
 
+                # same function for when house is rotated
                 if self.grid[col, row] > 1 and self.grid[col + 1, row] < 2:
                     begin_col_ver = col
                     begin_row_ver = row
