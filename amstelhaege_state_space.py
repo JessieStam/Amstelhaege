@@ -96,7 +96,8 @@ class FieldMap (object):
         self.grid[pos_top.y: pos_bottom.y + 1, pos_top.x: pos_bottom.x + 1] = tilevalue
        
         # dictionary update
-        self.occupied[(pos_top.x, pos_top.y)]
+        pos_top = Position(pos_top.x, pos_top.y)
+        self.occupied[pos_top]
 
         #10 want small house neemt 12 coords in beslag
         # if self.housetype == "small":
@@ -118,7 +119,7 @@ class FieldMap (object):
         for pos in self.occupied:
             for i in range(x, (x + width)):
                 for j in range (y, (y + depth)):
-                    if pos[0] == i and pos[1] == j:
+                    if pos.x == i and pos.y == j:
                         return True
 
         return False
