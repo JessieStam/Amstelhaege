@@ -53,7 +53,7 @@ class FieldMap (object):
         """
         # create grid filled with 0s (an int) using numpy
         #self.grid = np.zeros((320,300), dtype = int)
-        self.grid = np.zeros((15,15), dtype = int)
+        self.grid = np.zeros((70,60), dtype = int)
 
         
         # code below is filling grid using iterations, in case the above doesn't work
@@ -94,6 +94,7 @@ class FieldMap (object):
 
         # change value of grid positions
         self.grid[pos_top.y: pos_bottom.y + 1, pos_top.x: pos_bottom.x + 1] = tilevalue
+       
         # dictionary update
         self.occupied[(pos_top.x, pos_top.y)] = 300
 
@@ -138,81 +139,93 @@ class FieldMap (object):
         return ran_pos
 
     def amountGroundFree(self):
+        
+
         # WAAROM MOET ALLES EERST EEN WAARDE KRIJGEN???
-        begin_col_hor = 0
-        begin_row_hor = 0
-        end_col_hor = 0
-        end_row_hor = 0
-        begin_col_ver = 0
-        begin_row_ver = 0
-        end_col_ver = 0
-        end_row_ver = 0
-        begin_pos = Position(0,0)
-        house = True
-        # 300 x 320 grootte grid
-        for col in range(0, 13):
-            house == True
-            for row in range (0, 13):
-                # if tile has a house value and tile left and tile above position have no house value, 
-                # initialize starting position
-                if self.grid[col, row] > 1 and (self.grid[col, row - 1] < 2 or self.grid[col - 1, row] < 2):
-                    begin_pos = (col, row)
+        # begin_col_hor = 0
+        # begin_row_hor = 0
+        # end_col_hor = 0
+        # end_row_hor = 0
+        # begin_col_ver = 0
+        # begin_row_ver = 0
+        # end_col_ver = 0
+        # end_row_ver = 0
+        # begin_pos = Position(0,0)
+        # house = True
+        # # 300 x 320 grootte grid
+        # for col in range(0, 13):
+        #     house == True
+        #     for row in range (0, 13):
+        #         # if tile has a house value and tile left and tile above position have no house value, 
+        #         # initialize starting position
+        #         if self.grid[col, row] > 1 and (self.grid[col, row - 1] < 2 or self.grid[col - 1, row] < 2):
+        #             begin_pos = (col, row)
 
-                # if tile has a house value, and tile right of position has no house value or tile below 
-                # position has no house value, initialize start column and start row and define end of house
-                if self.grid[col, row] > 1 and self.grid[col, row + 1] < 2 or self.grid[col + 1, row] < 2:
-                    begin_col_hor = col
-                    begin_row_hor = row
-                    house = False
-                    print "here"
-                # if house is false, and tile right of position has a house value or tile below
-                # position has a house value, and positions to end of house
-                elif house == False and self.grid[col, row + 1] > 1 and self.grid[col, row + 2] > 1:
-                    end_col_hor = col + 1
-                    end_row_hor = row + 1
-                    house = True 
-                    if self.occupied.get(begin_pos, -1) > (end_row_hor - begin_row_hor):
-                        self.occupied[begin_pos] = (end_row_hor - begin_row_hor)
-                        print self.occupied[begin_pos]
+        #         # if tile has a house value, and tile right of position has no house value or tile below 
+        #         # position has no house value, initialize start column and start row and define end of house
+        #         if self.grid[col, row] > 1 and self.grid[col, row + 1] < 2 or self.grid[col + 1, row] < 2:
+        #             begin_col_hor = col
+        #             begin_row_hor = row
+        #             house = False
+        #             print "here"
+        #         # if house is false, and tile right of position has a house value or tile below
+        #         # position has a house value, and positions to end of house
+        #         elif house == False and self.grid[col, row + 1] > 1 and self.grid[col, row + 2] > 1:
+        #             end_col_hor = col + 1
+        #             end_row_hor = row + 1
+        #             house = True 
+        #             if self.occupied.get(begin_pos, -1) > (end_row_hor - begin_row_hor):
+        #                 self.occupied[begin_pos] = (end_row_hor - begin_row_hor)
+        #                 print self.occupied[begin_pos]
 
-                # same function for when house is rotated???
-                if self.grid[col, row] > 1 and self.grid[col + 1, row] < 2:
-                    begin_col_ver = col
-                    begin_row_ver = row
-                    house = False
-                elif house == False and self.grid[col + 1, row] > 1 and self.grid[col + 2, row] > 1:
-                    end_col_ver = col + 1
-                    end_row_ver = row + 1
-                    house = True 
-                    if self.occupied.get(begin_pos, -1) > (end_row_ver - begin_row_ver):
-                        self.occupied[begin_pos] = (end_row_ver - begin_row_ver)
-                        print self.occupied[begin_pos]
+        #         # same function for when house is rotated???
+        #         if self.grid[col, row] > 1 and self.grid[col + 1, row] < 2:
+        #             begin_col_ver = col
+        #             begin_row_ver = row
+        #             house = False
+        #         elif house == False and self.grid[col + 1, row] > 1 and self.grid[col + 2, row] > 1:
+        #             end_col_ver = col + 1
+        #             end_row_ver = row + 1
+        #             house = True 
+        #             if self.occupied.get(begin_pos, -1) > (end_row_ver - begin_row_ver):
+        #                 self.occupied[begin_pos] = (end_row_ver - begin_row_ver)
+        #                 print self.occupied[begin_pos]
                                            
 
 
 
 
 
-ground_test = FieldMap()
-pos_linkhoek = Position(1, 2)
-pos_rechthoek = Position(4, 4)
-num_tilevalue = 3 
+field = FieldMap()
+houselist = []
+houselist.append(SmallHouse(field))
+houselist.append(MediumHouse(field))
+for house in houselist:
+    house.setHousePosition()
 
-ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_tilevalue)
+print field.grid
 
-pos_linkhoek = Position(8, 3)
-pos_rechthoek = Position(13, 7)
+# pos_linkhoek = Position(1, 2)
+# pos_rechthoek = Position(4, 4)
+# num_tilevalue = 3 
 
-ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_tilevalue)
+# ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_tilevalue)
 
-for pos in ground_test.occupied:
-    print pos
+# pos_linkhoek = Position(8, 3)
+# pos_rechthoek = Position(13, 7)
 
-print ground_test.grid
-print ground_test.isGroundOccupied(1, 2, 2, 3)
-print ground_test.isGroundOccupied(0, 0, 3, 1)
+# ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_tilevalue)
 
-ground_test.amountGroundFree()
+# for pos in ground_test.occupied:
+#     print pos
+
+# print ground_test.grid
+# print ground_test.isGroundOccupied(1, 2, 2, 3)
+# print ground_test.isGroundOccupied(0, 0, 3, 1)
+
+# ground_test.amountGroundFree()
+
+
 
 visual_amstelhaege.runProgram(ground_test.grid)
 
@@ -221,7 +234,7 @@ class House (object):
     """
     Basis for three house types and water
     """
-    def __init__(self, x, y):
+    def __init__(self):
         """
         FieldMap: a class for the grid
         house_freem2: an int: obligatory free space aroud a house 
@@ -237,7 +250,7 @@ class House (object):
     def getHousePosition(self):
         return self.pos
 
-    def setHousePosition(self, housetype):
+    def setHousePosition(self):
         # get random pos to set house
         self.pos = self.field.getRandomPosition()
         # check if ground for house and obligatory free m2 is already occupied
@@ -257,7 +270,7 @@ class House (object):
         setOccupiedGround(self.pos_top_m2, self.pos_bottom_m2, self.house_freem2, free_m2_tilevalue)
         # overwrite ground of house where only the house is at different value
         # OF MOET DEZE LAATSTE IN DE HOUSE CLASS ZELF????
-        setOccupiedGround(self.pos, self.pos_bottom, housetype.house_tilevalue)
+        setOccupiedGround(self.pos, self.pos_bottom, self.house_tilevalue)
 
 #checken hoeveel meter huis tot andere huizen
 
@@ -266,35 +279,31 @@ class House (object):
 #init van super aanroepen <--- googlen (house)
 
 class SmallHouse (House):
-    def __init__(self):
+    def __init__(self, field):
+        self.field = field
         self.width = 16
         self.depth = 16
         self.free_m2 = 4
         self.house_tilevalue = 2
-    def getSmallHouseValue:
-        return self.house_tilevalue
 
 class MediumHouse (House):
-    def __init__(self):
+    def __init__(self, field):
+        self.field = field
         self.width = 20
         self.depth = 15
         self.free_m2 = 6
         self.house_tilevalue = 3
-    def getSmallHouseValue:
-        return self.house_tilevalue
 
 class LargeHouse (House):
-    def __init__(self):
+    def __init__(self, field):
+        self.field = field
         self.width = 22
         self.depth = 21
         self.free_m2 = 12
         self.house_tilevalue = 4
-    def getSmallHouseValue:
-        return self.house_tilevalue
 
 # class Water (object):
 #     """docstring for ClassName"""
 #     def __init__(self, arg):
 #         self.total = 4800
         
-
