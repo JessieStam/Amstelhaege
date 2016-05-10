@@ -256,7 +256,7 @@ class House (object):
         # set ground of house + obligatory free m2
         # maybe add the value that the tiles should have
         # set occupied ground veranderd de tegelwaarde in tilevalue for free_m2
-        self.field.setOccupiedGround(self.pos_top_m2, self.pos_bottom_m2, self.house_tilevalue)
+        self.field.setOccupiedGround(self.pos_top_m2, self.pos_bottom_m2, 1)
         # overwrite ground of house where only the house is at different value
         # OF MOET DEZE LAATSTE IN DE HOUSE CLASS ZELF????
         self.field.setOccupiedGround(self.pos, self.pos_bottom, self.house_tilevalue)
