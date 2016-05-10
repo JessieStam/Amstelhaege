@@ -66,7 +66,7 @@ class FieldMap (object):
             #   self.grid.append(row)
                 
         #for index, value in enumerate(grid) (store occupied locations in dictionary, we're not sure if we will use this yet)
-        self.occupied = {}
+        self.occupied = []
 
 
     # def getOccupiedGround(self):
@@ -317,6 +317,6 @@ for i in range(0, 10):
 for house in houselist:
     house.setHousePosition()
 
-#print field.grid
+print field.position
 
 visual_amstelhaege.runProgram(field.grid)        
