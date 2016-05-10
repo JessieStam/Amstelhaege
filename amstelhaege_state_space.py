@@ -53,7 +53,7 @@ class FieldMap (object):
         """
         # create grid filled with 0s (an int) using numpy
         #self.grid = np.zeros((320,300), dtype = int)
-        self.grid = np.zeros((70,60), dtype = int)
+        self.grid = np.zeros((320,300), dtype = int)
 
         
         # code below is filling grid using iterations, in case the above doesn't work
@@ -241,10 +241,10 @@ class House (object):
 
     def setHousePosition(self):
         # get random pos to set house
-        self.pos = self.field.getRandomPosition(60, 70)
+        self.pos = self.field.getRandomPosition(300, 320)
         # check if ground for house and obligatory free m2 is already occupied
         while (self.field.isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
-            self.pos = self.field.getRandomPosition(60, 70)
+            self.pos = self.field.getRandomPosition(300, 320)
 
         # calculate pos of left corner of house + obligatory free m2
         self.pos_top_m2 = Position((self.pos.x - self.free_m2), (self.pos.y - self.free_m2))
@@ -298,8 +298,10 @@ class LargeHouse (House):
 
 field = FieldMap()
 houselist = []
-houselist.append(SmallHouse(field))
-houselist.append(MediumHouse(field))
+for i in range(0, 10):
+    houselist.append(SmallHouse(field))
+    houselist.append(MediumHouse(field))
+    houselist.append(LargeHouse(field))
 for house in houselist:
     house.setHousePosition()
 
