@@ -57,19 +57,3 @@ calculate the cost of the new solution
 
 compare them
 
-
-
-# small house = 285000 (zien als 1 unit) (8 * 8 = 64)(voor iedere 64 blokken aan elkaar gerensend met een 1 waarde, value toevoegen )
-# extra_space_Small_house = 3% van 285000 (voor  iedere ring van 3en op het veld) 
-
-# (eerste ring voor 3% waarde vermeerdering = 43 2tjes, bij 94 6% waarde vermeerdering )
-# ( voor iedere  ruimte = lengte +(2*extra_space_Small_house) * breedte + (2*extra_space_Small_house) - (lengte*breedte))
-
-
-# bungalow = 399000 (10 * 7.5 = 75 blokken aaneensluitend met waarde 4, value toevoegen)
-# extra_space_bungalow = 4% van 399000
-# maison = 610000
-# extra_space_maison = 6% van 610000
-
-# som_waarde = Small_house * 285000 + (for every 3 in Field add )
-

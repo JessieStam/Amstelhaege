@@ -46,10 +46,25 @@ pos_linkhoek = Position(1, 2)
 pos_rechthoek = Position(4, 4)
 num_tilevalue = 3 
 
-pos_linkhoek = Position(5, 2)
-pos_rechthoek = Position(7, 4)
-num_tilevalue = 2
-
 ground_test.setOccupiedGround(pos_linkhoek, pos_rechthoek, num_tilevalue)
 print ground_test.grid
+
+ def analyze(self): de grid analyseren om waarde te berekenen.
+
+ def move_house(current_state, move):
+ 	pos.x, pos.y = current_state
+
+ 	if move == 'up':
+ 		pos.x += 1
+ 	elif move == 'down':
+ 		pos.x -= 1
+ 	elif move == "right"
+ 		pos.y += 1
+ 	else:
+ 		pos.y -= 1
+ 	next_state = pos.x, pos.y	
+
+ 	return next_state			
+
+
 
