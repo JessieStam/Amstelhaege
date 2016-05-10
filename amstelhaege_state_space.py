@@ -244,7 +244,7 @@ class House (object):
         self.pos = self.field.getRandomPosition(60, 70)
         # check if ground for house and obligatory free m2 is already occupied
         while (self.field.isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
-            self.pos = self.field.getRandomPosition()
+            self.pos = self.field.getRandomPosition(60, 70)
 
         # calculate pos of left corner of house + obligatory free m2
         self.pos_top_m2 = Position((self.pos.x - self.free_m2), (self.pos.y - self.free_m2))
