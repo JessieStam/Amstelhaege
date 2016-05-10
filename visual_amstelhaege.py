@@ -28,8 +28,8 @@ def runProgram(grid):
 
     #iterate over grid
     #comments magic numbers
-    for depth in range(0, 15):
-        for width in range(0, 15):
+    for depth in range(0, 320):
+        for width in range(0, 300):
             # draw darkgreen squares for required free space
             # changed depth and with positions, because orientation was off
             if grid[depth, width] == 1:
@@ -52,6 +52,8 @@ def runProgram(grid):
                 pygame.display.update()
 
         pygame.display.update()
+
+    # pygame.image.save(img, "image.jpg")    
 
     # keep program running until told otherwise               
     while True:
