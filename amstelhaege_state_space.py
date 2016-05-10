@@ -2,7 +2,7 @@ import math
 import random
 import numpy as np
 import visual_amstelhaege
-#import pygame
+# import pygame
 
 
 # matrix alleen nodig voor visualisatie
@@ -133,8 +133,8 @@ class FieldMap (object):
         # constraints in de functie waar hij aangeroepen wordt
         # minus 18 because every house extands 18 tiles to the right and down (16m + 2m free space)
         # used to be 23, dont know why
-        ran_x = random.randint(0, width - 18) 
-        ran_y = random.randint(0, depth - 18)
+        ran_x = random.randint(0, width - 28) 
+        ran_y = random.randint(0, depth - 28)
         ran_pos = Position(ran_x, ran_y)
         return ran_pos
 
@@ -192,14 +192,7 @@ class FieldMap (object):
         #                 print self.occupied[begin_pos]
                                            
 
-field = FieldMap()
-houselist = []
-houselist.append(SmallHouse(field))
-houselist.append(MediumHouse(field))
-for house in houselist:
-    house.setHousePosition()
 
-print field.grid
 
 # pos_linkhoek = Position(1, 2)
 # pos_rechthoek = Position(4, 4)
@@ -223,7 +216,7 @@ print field.grid
 
 
 
-visual_amstelhaege.runProgram(ground_test.grid)
+
 
 
 class House (object):
@@ -248,25 +241,25 @@ class House (object):
 
     def setHousePosition(self):
         # get random pos to set house
-        self.pos = self.field.getRandomPosition()
+        self.pos = self.field.getRandomPosition(60, 70)
         # check if ground for house and obligatory free m2 is already occupied
-        while (isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
+        while (self.field.isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
             self.pos = self.field.getRandomPosition()
 
         # calculate pos of left corner of house + obligatory free m2
-        self.pos_top_m2 = (self.pos.x - self.free_m2), (self.pos.y - self.free_m2)
+        self.pos_top_m2 = Position((self.pos.x - self.free_m2), (self.pos.y - self.free_m2))
         # calculate pos of right corner of house
-        self.pos_bottom = ((self.pos.x + self.width), (self.pos.y + self.depth))
+        self.pos_bottom = Position((self.pos.x + self.width), (self.pos.y + self.depth))
         # calculate pos of richt corner of house + obligatory free m2
-        self.pos_bottom_m2 = ((self.pos_bottom.x + self.free_m2), (self.pos_bottom.y + self.free_m2))
+        self.pos_bottom_m2 = Position((self.pos_bottom.x + self.free_m2), (self.pos_bottom.y + self.free_m2))
 
         # set ground of house + obligatory free m2
         # maybe add the value that the tiles should have
         # set occupied ground veranderd de tegelwaarde in tilevalue for free_m2
-        setOccupiedGround(self.pos_top_m2, self.pos_bottom_m2, self.house_freem2, free_m2_tilevalue)
+        self.field.setOccupiedGround(self.pos_top_m2, self.pos_bottom_m2, self.house_tilevalue)
         # overwrite ground of house where only the house is at different value
         # OF MOET DEZE LAATSTE IN DE HOUSE CLASS ZELF????
-        setOccupiedGround(self.pos, self.pos_bottom, self.house_tilevalue)
+        self.field.setOccupiedGround(self.pos, self.pos_bottom, self.house_tilevalue)
 
 #checken hoeveel meter huis tot andere huizen
 
@@ -302,4 +295,14 @@ class LargeHouse (House):
 #     """docstring for ClassName"""
 #     def __init__(self, arg):
 #         self.total = 4800
-        
+
+field = FieldMap()
+houselist = []
+houselist.append(SmallHouse(field))
+houselist.append(MediumHouse(field))
+for house in houselist:
+    house.setHousePosition()
+
+#print field.grid
+
+visual_amstelhaege.runProgram(field.grid)        
