@@ -317,6 +317,6 @@ for i in range(0, 10):
 for house in houselist:
     house.setHousePosition()
 
-print field.position
+print field.occupied
 
 visual_amstelhaege.runProgram(field.grid)        
