@@ -321,4 +321,4 @@ for house in houselist:
 
 print field.occupied
 
-visual_amstelhaege.runProgram(field.grid)        
+#visual_amstelhaege.runProgram(field.grid)        

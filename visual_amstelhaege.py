@@ -11,7 +11,7 @@ def runProgram(grid):
     # four times the size of the original map
     map_size = (600, 640)
 
-    black = (0, 0, 0)
+    yellow = (255, 255, 0)
     darkgreen = (0, 80, 0)
     green = (0, 255, 0)
     blue = (0, 0, 255)
@@ -33,22 +33,22 @@ def runProgram(grid):
             # draw darkgreen squares for required free space
             # changed depth and with positions, because orientation was off
             if grid[depth, width] == 1:
-                pygame.draw.rect(surface_bg, darkgreen, ((width * 4), (depth * 4), 4, 4), 0)
-            # draw black squares for small house
+                pygame.draw.rect(surface_bg, darkgreen, ((width * 2), (depth * 2), 2, 2), 0)
+            # draw yellow squares for small house
             elif grid[depth, width] == 2:
-                pygame.draw.rect(surface_bg, black, ((width * 4), (depth * 4), 4, 4), 0)
+                pygame.draw.rect(surface_bg, yellow, ((width * 2), (depth * 2), 2, 2), 0)
                 pygame.display.update()
             # draw red squares for medium house
             elif grid[depth, width] == 3:
-                pygame.draw.rect(surface_bg, red, ((width * 4), (depth * 4), 4, 4), 0)
+                pygame.draw.rect(surface_bg, red, ((width * 2), (depth * 2), 2, 2), 0)
                 pygame.display.update()
             # draw pink squares for large house
             elif grid[depth, width] == 4:
-                pygame.draw.rect(surface_bg, pretty_pink, ((width * 4), (depth * 4), 4, 4), 0)
+                pygame.draw.rect(surface_bg, pretty_pink, ((width * 2), (depth * 2), 2, 2), 0)
                 pygame.display.update()
             # draw blue squares for water
             elif grid[depth, width] == 5:
-                pygame.draw.rect(surface_bg, blue, ((width * 4), (depth * 4), 4, 4), 0)
+                pygame.draw.rect(surface_bg, blue, ((width * 2), (depth * 2), 2, 2), 0)
                 pygame.display.update()
 
         pygame.display.update()
