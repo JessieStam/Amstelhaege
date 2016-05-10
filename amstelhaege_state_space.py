@@ -241,16 +241,16 @@ class House (object):
 
     def setHousePosition(self):
 
-            def isGroundOccupied(self, x, y, width, depth):
-        # MOET HOUSETYPE WORDEN MEEGEGEVEN????? Jessie denkt van niet,
-        # want hij geeft true of false terug, niet de waarde van de tegel
-        for pos in self.occupied:
-            for i in range(x, (x + width)):
-                for j in range (y, (y + depth)):
-                    if pos[0] == i and pos[1] == j:
-                        return True
+        #     def isGroundOccupied(self, x, y, width, depth):
+        # # MOET HOUSETYPE WORDEN MEEGEGEVEN????? Jessie denkt van niet,
+        # # want hij geeft true of false terug, niet de waarde van de tegel
+        # for pos in self.occupied:
+        #     for i in range(x, (x + width)):
+        #         for j in range (y, (y + depth)):
+        #             if pos[0] == i and pos[1] == j:
+        #                 return True
 
-        return False
+        # return False
         # get random pos to set house
         self.pos = self.field.getRandomPosition(300, 320)
         # check if ground for house and obligatory free m2 is already occupied
