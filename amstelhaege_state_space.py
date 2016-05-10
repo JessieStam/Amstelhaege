@@ -97,7 +97,7 @@ class FieldMap (object):
        
         # dictionary update
         pos_top = Position(pos_top.x, pos_top.y)
-        self.occupied = [pos_top]
+        self.occupied.append(pos_top)
 
         #10 want small house neemt 12 coords in beslag
         # if self.housetype == "small":
