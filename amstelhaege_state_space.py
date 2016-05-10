@@ -138,7 +138,7 @@ class FieldMap (object):
         ran_pos = Position(ran_x, ran_y)
         return ran_pos
 
-    def amountGroundFree(self):
+    #def amountGroundFree(self):
         
 
         # WAAROM MOET ALLES EERST EEN WAARDE KRIJGEN???
@@ -191,10 +191,6 @@ class FieldMap (object):
         #                 self.occupied[begin_pos] = (end_row_ver - begin_row_ver)
         #                 print self.occupied[begin_pos]
                                            
-
-
-
-
 
 field = FieldMap()
 houselist = []
