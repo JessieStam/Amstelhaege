@@ -127,11 +127,11 @@ class FieldMap (object):
         freespace_pos = free_m2
 
         for pos in self.occupied:
-            if self.grid[y, x - 12] == 1:
+            if self.grid[pos.y, pos.x - 12] == 1:
                 freespace_pos =  12
-            elif self.grid[y, x - 6] == 1 and 6 > freespace_pos:
+            elif self.grid[pos.y, pos.x - 6] == 1 and 6 > freespace_pos:
                 freespace_pos = 6
-            elif self.grid[y, x - 4] == 1 and 4 > freespace_pos:
+            elif self.grid[pos.y, pos.x - 4] == 1 and 4 > freespace_pos:
                 freespace_pos = 4
 
             for i in range(x, (x + width + freespace_pos)):
