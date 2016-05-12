@@ -138,6 +138,11 @@ class FieldMap (object):
         for i in range(x, (x + width)):
             for j in range (y, (y + depth)):
                 if self.grid[j, i] > 0:
+                    return True
+
+        for k in range (x - free_m2, (x + width + free_m2)):
+            for l in range(y - free_m2, (y + width + free_m2)):
+                if self.grid[l, k] > 1:
                     # for k in range(x, (x + width + freespace_pos)):
                     #     for l in range (y, (y + depth + freespace_pos)):
                     #         if self.grid[l, k] > 1:
