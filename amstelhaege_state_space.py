@@ -134,8 +134,8 @@ class FieldMap (object):
             elif self.grid[y, x - 4] == 1 and 4 > freespace_pos:
                 freespace_pos = 4
 
-            for i in range(x - freespace_pos, (x + width + freespace_pos)):
-                for j in range (y - freespace_pos, (y + depth + freespace_pos)):
+            for i in range(x, (x + width + freespace_pos)):
+                for j in range (y, (y + depth + freespace_pos)):
                     if self.grid[j, i] > 1:
                         return True
         return False
