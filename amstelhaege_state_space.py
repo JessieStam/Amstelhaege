@@ -128,16 +128,16 @@ class FieldMap (object):
         true_counter = 0
 
         for pos in self.occupied:
-            if self.grid[pos.y, pos.x - 12] == 1:
-                freespace_pos =  12
-            if self.grid[pos.y, pos.x - 6] == 1 and 6 > freespace_pos:
-                freespace_pos = 6
-            if self.grid[pos.y, pos.x - 4] == 1 and 4 > freespace_pos:
-                freespace_pos = 4
+            # if self.grid[pos.y, pos.x - 12] == 1:
+            #     freespace_pos =  12
+            # if self.grid[pos.y, pos.x - 6] == 1 and 6 > freespace_pos:
+            #     freespace_pos = 6
+            # if self.grid[pos.y, pos.x - 4] == 1 and 4 > freespace_pos:
+            #     freespace_pos = 4
 
             for i in range(x, (x + width)):
                 for j in range (y, (y + depth)):
-                    if self.grid[j, i] > 0:
+                    if self.grid[i, j] > 0:
                         return True
                         #true_counter += 1
                         
