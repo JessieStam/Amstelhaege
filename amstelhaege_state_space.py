@@ -129,10 +129,7 @@ class FieldMap (object):
             for i in range(x, (x + width)):
                 for j in range (y, (y + depth)):
                     if grid_test[j, i] > 1:
-                        grid_x = j
-                        grid_y = i
-                        if grid_x == i and grid_y == j:
-                            return True
+                        return True
         return False
 
 
