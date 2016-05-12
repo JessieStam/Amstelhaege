@@ -153,8 +153,8 @@ class FieldMap (object):
         # constraints in de functie waar hij aangeroepen wordt
         # minus 18 because every house extands 18 tiles to the right and down (16m + 2m free space)
         # used to be 23, dont know why
-        ran_x = random.randint(0 + 28, width - 28) 
-        ran_y = random.randint(0 + 28, depth - 28)
+        ran_x = random.randint(0 + 12, width - 28) 
+        ran_y = random.randint(0 + 12, depth - 28)
         ran_pos = Position(ran_x, ran_y)
         return ran_pos
 
