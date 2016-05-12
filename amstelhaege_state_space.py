@@ -124,8 +124,7 @@ class FieldMap (object):
         # Caitlin, moet pos niet gedefinieerd worden als zijnde een positie? Want nu kun je toch net zo goed "poep" schrijven eigenlijk? Hoe weet hij dat
         # het een pos is?
 
-        freespace_pos = free_m2
-
+        
         # check every house in the list
         #for pos in self.occupied:
             # if self.grid[pos.y, pos.x - 12] == 1:
@@ -141,7 +140,7 @@ class FieldMap (object):
                     return True
 
         for k in range (x - free_m2, (x + width + free_m2)):
-            for l in range(y - free_m2, (y + width + free_m2)):
+            for l in range(y - free_m2, (y + depth + free_m2)):
                 if self.grid[l, k] > 1:
                     # for k in range(x, (x + width + freespace_pos)):
                     #     for l in range (y, (y + depth + freespace_pos)):
