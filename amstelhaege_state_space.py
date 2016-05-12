@@ -126,7 +126,7 @@ class FieldMap (object):
         for pos in self.occupied:
             for i in range(x, (x + width)):
                 for j in range (y, (y + depth)):
-                    if pos.x == i and pos.y == j:
+                    if self.grid[j, i] > 1:
                         return True
         return False
 
