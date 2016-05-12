@@ -123,11 +123,16 @@ class FieldMap (object):
 
         # Caitlin, moet pos niet gedefinieerd worden als zijnde een positie? Want nu kun je toch net zo goed "poep" schrijven eigenlijk? Hoe weet hij dat
         # het een pos is?
+        grid_test = self.grid
+
         for pos in self.occupied:
             for i in range(x, (x + width)):
                 for j in range (y, (y + depth)):
-                    if self.grid[j, i] > 1:
-                        return True
+                    if grid_test[j, i] > 1:
+                        grid_x = j
+                        grid_y = i
+                        if grid_x == i and grid_y == j:
+                            return True
         return False
 
 
