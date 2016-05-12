@@ -266,6 +266,8 @@ class House (object):
         # ik heb hier de - self.free_m2 die van x en y zijn afgetrokken weggehaald (zoals hieronder in de comment), want ze kunnen vrije ruimte delen
         while (self.field.isGroundOccupied((self.pos.x), (self.pos.y), (self.width + self.free_m2), (self.depth + self.free_m2))):
             self.pos = self.field.getRandomPosition(300, 320)
+            print "occupied"
+            print self.pos
 
         # while (self.field.isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
             # self.pos = self.field.getRandomPosition(300, 320)
