@@ -36,6 +36,8 @@ class Position (object):
         Returns the y coordinate of the given object.
         """
         return self.y
+    def __str__(self):
+        return str(self.x) + ", " + str(self.y)
 
         #if self.housetype == "small":
 
@@ -264,20 +266,22 @@ class House (object):
         # check if ground for house and obligatory free m2 is already occupied
         
         # ik heb hier de - self.free_m2 die van x en y zijn afgetrokken weggehaald (zoals hieronder in de comment), want ze kunnen vrije ruimte delen
-        while (self.field.isGroundOccupied((self.pos.x), (self.pos.y), (self.width + self.free_m2), (self.depth + self.free_m2))):
-            self.pos = self.field.getRandomPosition(300, 320)
-            print "occupied"
-            print self.pos
+        # while (self.field.isGroundOccupied((self.pos.x), (self.pos.y), (self.width + self.free_m2), (self.depth + self.free_m2))):
+        #     self.pos = self.field.getRandomPosition(300, 320)
 
-        # while (self.field.isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
-            # self.pos = self.field.getRandomPosition(300, 320)
+        while (self.field.isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
+            self.pos = self.field.getRandomPosition(300, 320)
+            print "occupied", self.pos.x, self.pos.y
 
         # calculate pos of left corner of house + obligatory free m2
         self.pos_top_m2 = Position((self.pos.x - self.free_m2), (self.pos.y - self.free_m2))
+        print "self.pos_top_m2", self.pos_top_m2
         # calculate pos of right corner of house
         self.pos_bottom = Position((self.pos.x + self.width), (self.pos.y + self.depth))
+        print "self.pos_bottom", self.pos_bottom
         # calculate pos of richt corner of house + obligatory free m2
         self.pos_bottom_m2 = Position((self.pos_bottom.x + self.free_m2), (self.pos_bottom.y + self.free_m2))
+        print "self.pos_bottom_m2", self.pos_bottom_m2
 
         # set ground of house + obligatory free m2
         # maybe add the value that the tiles should have
@@ -331,6 +335,9 @@ for i in range(0, 10):
 for house in houselist:
     house.setHousePosition()
 
-print field.occupied
+for poss in field.occupied:
+
+    print poss.x
+    print poss.y
 
 visual_amstelhaege.runProgram(field.grid)               
