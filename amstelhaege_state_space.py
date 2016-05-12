@@ -129,9 +129,9 @@ class FieldMap (object):
         for pos in self.occupied:
             if self.grid[pos.y, pos.x - 12] == 1:
                 freespace_pos =  12
-            elif self.grid[pos.y, pos.x - 6] == 1 and 6 > freespace_pos:
+            if self.grid[pos.y, pos.x - 6] == 1 and 6 > freespace_pos:
                 freespace_pos = 6
-            elif self.grid[pos.y, pos.x - 4] == 1 and 4 > freespace_pos:
+            if self.grid[pos.y, pos.x - 4] == 1 and 4 > freespace_pos:
                 freespace_pos = 4
 
             for i in range(x, (x + width + freespace_pos)):
@@ -153,8 +153,8 @@ class FieldMap (object):
         # constraints in de functie waar hij aangeroepen wordt
         # minus 18 because every house extands 18 tiles to the right and down (16m + 2m free space)
         # used to be 23, dont know why
-        ran_x = random.randint(0, width - 28) 
-        ran_y = random.randint(0, depth - 28)
+        ran_x = random.randint(0 + 28, width - 28) 
+        ran_y = random.randint(0 + 28, depth - 28)
         ran_pos = Position(ran_x, ran_y)
         return ran_pos
 
