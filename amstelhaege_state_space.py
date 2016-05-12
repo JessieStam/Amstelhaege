@@ -117,18 +117,26 @@ class FieldMap (object):
 
 
 
-    def isGroundOccupied(self, x, y, width, depth):
+    def isGroundOccupied(self, x, y, width, depth, free_m2):
         # MOET HOUSETYPE WORDEN MEEGEGEVEN????? Jessie denkt van niet,
         # want hij geeft true of false terug, niet de waarde van de tegel
 
         # Caitlin, moet pos niet gedefinieerd worden als zijnde een positie? Want nu kun je toch net zo goed "poep" schrijven eigenlijk? Hoe weet hij dat
         # het een pos is?
-        grid_test = self.grid
+
+        freespace_pos = free_m2
 
         for pos in self.occupied:
+            if self.grid[y, x - 12] == 1:
+                freespace_pos =  12
+            elif self.grid[y, x - 6] == 1 and 6 > freespace_pos:
+                freespace_pos = 6
+            elif self.grid[y, x - 4] == 1 and 4 > freespace_pos:
+                freespace_pos = 4
+
             for i in range(x, (x + width)):
                 for j in range (y, (y + depth)):
-                    if grid_test[j, i] > 1:
+                    if self.grid[j, i] > 1:
                         return True
         return False
 
@@ -271,7 +279,7 @@ class House (object):
         # while (self.field.isGroundOccupied((self.pos.x), (self.pos.y), (self.width + self.free_m2), (self.depth + self.free_m2))):
         #     self.pos = self.field.getRandomPosition(300, 320)
 
-        while (self.field.isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
+        while (self.field.isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), self.width, self.depth, self.free_m2)):
             self.pos = self.field.getRandomPosition(300, 320)
             print "occupied", self.pos.x, self.pos.y
 
