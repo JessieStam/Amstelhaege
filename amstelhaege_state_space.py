@@ -125,8 +125,8 @@ class FieldMap (object):
         # het een pos is?
 
         freespace_pos = free_m2
-        true_counter = 0
 
+        # check every house in the list
         for pos in self.occupied:
             # if self.grid[pos.y, pos.x - 12] == 1:
             #     freespace_pos =  12
@@ -138,14 +138,11 @@ class FieldMap (object):
             for i in range(x, (x + width)):
                 for j in range (y, (y + depth)):
                     if self.grid[j, i] > 0:
-                        if (self.grid[y, x - free_m2]) > 1 or (self.grid[y, x + free_m2] > 1):
-                            if (self.grid[y - free_m2, x]) > 1 or (self.grid[y + free_m2, x] > 1):
-                                return True
-                        
-            # for k in range(x, (x + width + freespace_pos)):
-            #     for l in range (y, (y + depth + freespace_pos)):
-            #         if self.grid[l, k] > 1:
-            #             true_counter += 1
+                        # for k in range(x, (x + width + freespace_pos)):
+                        #     for l in range (y, (y + depth + freespace_pos)):
+                        #         if self.grid[l, k] > 1:
+                        return True
+
         return False
 
 
