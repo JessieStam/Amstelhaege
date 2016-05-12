@@ -118,13 +118,18 @@ class FieldMap (object):
     def isGroundOccupied(self, x, y, width, depth):
         # MOET HOUSETYPE WORDEN MEEGEGEVEN????? Jessie denkt van niet,
         # want hij geeft true of false terug, niet de waarde van de tegel
+
+        # Caitlin, moet pos niet gedefinieerd worden als zijnde een positie? Want nu kun je toch net zo goed "poep" schrijven eigenlijk? Hoe weet hij dat
+        # het een pos is?
         for pos in self.occupied:
             for i in range(x, (x + width)):
                 for j in range (y, (y + depth)):
                     if pos.x == i and pos.y == j:
                         return True
-
         return False
+
+
+
 
     def getRandomPosition(self, width, depth):
         """
@@ -257,8 +262,13 @@ class House (object):
         # get random pos to set house
         self.pos = self.field.getRandomPosition(300, 320)
         # check if ground for house and obligatory free m2 is already occupied
-        while (self.field.isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
+        
+        # ik heb hier de - self.free_m2 die van x en y zijn afgetrokken weggehaald (zoals hieronder in de comment), want ze kunnen vrije ruimte delen
+        while (self.field.isGroundOccupied((self.pos.x), (self.pos.y), (self.width + self.free_m2), (self.depth + self.free_m2))):
             self.pos = self.field.getRandomPosition(300, 320)
+
+        # while (self.field.isGroundOccupied((self.pos.x - self.free_m2), (self.pos.y - self.free_m2), (self.width + self.free_m2), (self.depth + self.free_m2))):
+            # self.pos = self.field.getRandomPosition(300, 320)
 
         # calculate pos of left corner of house + obligatory free m2
         self.pos_top_m2 = Position((self.pos.x - self.free_m2), (self.pos.y - self.free_m2))
